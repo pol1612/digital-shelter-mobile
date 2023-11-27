@@ -8,8 +8,11 @@ import okhttp3.*
 import okio.IOException
 import personal.pol.sanejove.digital_shelter.databinding.ActivityMainBinding
 import personal.pol.sanejove.digital_shelter.model.Dog
+import personal.pol.sanejove.scrollable_list_app.adapter.DogAdapter
 
 class MainActivity : AppCompatActivity() {
+    private lateinit var recyclerView: RecyclerView;
+
     private lateinit var httpClient : OkHttpClient;
 
     private lateinit var binding : ActivityMainBinding;
@@ -25,7 +28,12 @@ class MainActivity : AppCompatActivity() {
 
         var dogsList = getDogsList()
 
-        val recyclerView = findViewById<RecyclerView>(R.id.recycler_view)
+        recyclerView = findViewById<RecyclerView>(R.id.recycler_view)
+
+        recyclerView.adapter = DogAdapter( dogsList)
+
+        recyclerView.setHasFixedSize(false)
+        println(dogsList.size.toString())
 
 
     }
@@ -50,6 +58,11 @@ class MainActivity : AppCompatActivity() {
                         // Update UI or perform other actions with the response
                         // For example, you can parse the JSON and display data in the RecyclerView
                         // Add your RecyclerView setup logic here
+                        recyclerView.adapter = DogAdapter(dogs)
+
+                        recyclerView.setHasFixedSize(false)
+                        println(dogs.size.toString())
+
                     }
                 } else {
                     // Handle unsuccessful response

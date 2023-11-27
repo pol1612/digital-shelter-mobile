@@ -18,13 +18,13 @@
         <TextView
             android:id="@+id/dog_name"
             android:layout_width="match_parent"
-            android:layout_height="16dp"
+            android:layout_height="26dp"
             android:textAppearance="?attr/textAppearanceHeadline6"/>
 
         <TextView
             android:id="@+id/dog_age"
             android:layout_width="match_parent"
-            android:layout_height="16dp"
+            android:layout_height="26dp"
             android:textAppearance="?attr/textAppearanceHeadline6"/>
     </LinearLayout>
 
