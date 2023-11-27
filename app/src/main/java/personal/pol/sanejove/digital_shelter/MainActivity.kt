@@ -3,6 +3,7 @@ package personal.pol.sanejove.digital_shelter
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.RecyclerView
+import com.google.gson.Gson
 import okhttp3.*
 import okio.IOException
 import personal.pol.sanejove.digital_shelter.databinding.ActivityMainBinding
@@ -22,13 +23,14 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
 
 
-         var dogsList = getDogsList()
+        var dogsList = getDogsList()
 
         val recyclerView = findViewById<RecyclerView>(R.id.recycler_view)
 
+
     }
     private fun getDogsList() : List<Dog> {
-
+        var dogs : List<Dog> = mutableListOf<Dog>()
 
         httpClient =  OkHttpClient()
         var request = Request.Builder()
@@ -41,6 +43,8 @@ class MainActivity : AppCompatActivity() {
                 if (response.isSuccessful) {
                     val responseBody = response.body?.string()
                     println(responseBody)
+                    dogs = Gson().fromJson(responseBody, Array<Dog>::class.java).toList()
+
                     // Process the response on the main thread if needed
                     runOnUiThread {
                         // Update UI or perform other actions with the response
@@ -58,6 +62,6 @@ class MainActivity : AppCompatActivity() {
                 println("Network Error: ${e.message}")
             }
         })
-
+        return dogs
     }
 }
